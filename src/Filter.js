@@ -7,10 +7,9 @@ export default function Filter(props) {
         defaultValue={(event) => event.target.option.value}
         onChange={props.onChange}
         id="guest-filter"
+        selected
       >
-        <option selected value="default">
-          ---select filter---
-        </option>
+        <option value="default">---select filter---</option>
         <option value="non-attending">non-attending guests</option>
         <option value="attending">attending guests</option>
       </select>

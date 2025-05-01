@@ -16,15 +16,20 @@ export default function App() {
     const response = await fetch(`${baseUrl}/guests`);
     const allGuests = await response.json();
     setGuestList(allGuests);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     /* fetch API data */
 
     apiFetch().catch((error) => console.log(error));
-
-    setIsLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (guestList.length > 0) {
+      document.title = guestList;
+    }
+  }, [guestList]);
 
   async function createGuest(first, last) {
     await fetch(`${baseUrl}/guests`, {
@@ -89,7 +94,6 @@ export default function App() {
     }
     apiFetch().catch((error) => console.log(error));
   };
-  console.log(guestList, lastName, firstName);
 
   if (isLoading) {
     return (
