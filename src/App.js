@@ -106,7 +106,6 @@ export default function App() {
       <div className="App">
         <Form
           className="Form"
-          readOnly={isLoading}
           getList={keyHandle}
           first={firstName}
           last={lastName}
@@ -123,7 +122,6 @@ export default function App() {
           guestList={guestList}
           onClick={(event) => removeGuest(event)}
           check={(event) => checkFilter(event)}
-          readOnly={isLoading}
         />
       </div>
     );
