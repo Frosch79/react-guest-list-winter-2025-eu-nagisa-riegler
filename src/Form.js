@@ -3,7 +3,7 @@ import Input from './Input';
 export default function Form(props) {
   return (
     <div className={props.className}>
-      {/* <p>Guest list</p> */}
+      <p>Guest list</p>
       {/* by returning on last name input form submit both */}
       <form id="new-guest" type="submit">
         <Input
