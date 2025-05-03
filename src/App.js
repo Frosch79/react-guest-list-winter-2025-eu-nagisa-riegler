@@ -21,15 +21,16 @@ export default function App() {
 
   useEffect(() => {
     /* fetch API data */
-
     apiFetch().catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
-    if (guestList.length > 0) {
-      document.title = guestList;
+    if (isLoading) {
+      document.title = 'Loading';
+    } else {
+      document.title = 'GUEST LIST';
     }
-  }, [guestList]);
+  }, [isLoading]);
 
   async function createGuest(first, last) {
     await fetch(`${baseUrl}/guests`, {

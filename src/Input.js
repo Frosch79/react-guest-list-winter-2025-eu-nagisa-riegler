@@ -1,9 +1,9 @@
 export default function Input(props) {
   return (
     <div className={props.className}>
-      <label htmlFor={props.label}>{props.label}</label>
+      <label htmlFor={props.id}>{props.label}</label>
       <input
-        id={props.label}
+        id={props.id}
         onKeyDown={props.onKeyDown}
         onChange={props.onChange}
         value={props.value}
