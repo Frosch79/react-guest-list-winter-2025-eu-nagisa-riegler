@@ -97,35 +97,37 @@ export default function App() {
     apiFetch().catch((error) => console.log(error));
   };
 
-  return (
-    <div className={isLoading ? '' : 'App'}>
-      {isLoading ? (
+  if (isLoading) {
+    return (
+      <div>
         <h1>Loading...</h1>
-      ) : (
-        <>
-          <Form
-            className="Form"
-            readOnly={isLoading}
-            getList={keyHandle}
-            first={firstName}
-            last={lastName}
-            getFirstName={(event) => setFirstName(event.currentTarget.value)}
-            getLastName={(event) => setLastName(event.currentTarget.value)}
-          />
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <Form
+          className="Form"
+          readOnly={isLoading}
+          getList={keyHandle}
+          first={firstName}
+          last={lastName}
+          getFirstName={(event) => setFirstName(event.currentTarget.value)}
+          getLastName={(event) => setLastName(event.currentTarget.value)}
+        />
 
-          <Button
-            /* to delete all attending guest */
-            onClick={() => removeAllGuests()}
-            value="delete all attending guests"
-          />
-          <ListTable
-            guestList={guestList}
-            onClick={(event) => removeGuest(event)}
-            check={(event) => checkFilter(event)}
-            readOnly={isLoading}
-          />
-        </>
-      )}
-    </div>
-  );
+        <Button
+          /* to delete all attending guest */
+          onClick={() => removeAllGuests()}
+          value="delete all attending guests"
+        />
+        <ListTable
+          guestList={guestList}
+          onClick={(event) => removeGuest(event)}
+          check={(event) => checkFilter(event)}
+          readOnly={isLoading}
+        />
+      </div>
+    );
+  }
 }
