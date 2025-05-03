@@ -13,16 +13,17 @@ export default function App() {
   const baseUrl = 'http://localhost:4000';
 
   const apiFetch = async () => {
-    const response = await fetch(`${baseUrl}/guests`);
-    const allGuests = await response.json();
-    setGuestList(allGuests);
+    await fetch(`${baseUrl}/guests`)
+      .then((response) => response.json())
+      .then((allGuests) => setGuestList(allGuests), setIsLoading(false));
+    /*  const allGuests = await response.json();
+    setGuestList(allGuests); */
     /*     setIsLoading(false); */
   };
 
   useEffect(() => {
     /* fetch API data */
     apiFetch().catch((error) => console.log(error));
-    setIsLoading(false);
   }, []);
 
   useEffect(() => {
