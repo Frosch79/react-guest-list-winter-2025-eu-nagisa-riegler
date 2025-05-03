@@ -16,13 +16,17 @@ export default function App() {
     const response = await fetch(`${baseUrl}/guests`);
     const allGuests = await response.json();
     setGuestList(allGuests);
-    setIsLoading(false);
   };
 
   useEffect(() => {
     /* fetch API data */
-
-    apiFetch().catch((error) => console.log(error));
+    const fetchData = async () => {
+      const response = await fetch(`${baseUrl}/guests`);
+      const allGuests = await response.json();
+      setGuestList(allGuests);
+      setIsLoading(false);
+    };
+    fetchData().catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
