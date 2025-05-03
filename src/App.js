@@ -10,23 +10,19 @@ export default function App() {
   const [lastName, setLastName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  const baseUrl = 'http://localhost:4000';
+  const baseUrl = 'https://frosch-79-express-gue-19.deno.dev';
 
   const apiFetch = async () => {
     const response = await fetch(`${baseUrl}/guests`);
     const allGuests = await response.json();
     setGuestList(allGuests);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     /* fetch API data */
-    const fetchData = async () => {
-      const response = await fetch(`${baseUrl}/guests`);
-      const allGuests = await response.json();
-      setGuestList(allGuests);
-      setIsLoading(false);
-    };
-    fetchData().catch((error) => console.log(error));
+
+    apiFetch().catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
