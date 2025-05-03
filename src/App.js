@@ -106,11 +106,12 @@ export default function App() {
       <div className="App">
         <Form
           className="Form"
+          readOnly={isLoading}
           getList={keyHandle}
           first={firstName}
           last={lastName}
-          getFirstName={(event) => setFirstName(event.target.value)}
-          getLastName={(event) => setLastName(event.target.value)}
+          getFirstName={(event) => setFirstName(event.currentTarget.value)}
+          getLastName={(event) => setLastName(event.currentTarget.value)}
         />
 
         <Button
@@ -122,6 +123,7 @@ export default function App() {
           guestList={guestList}
           onClick={(event) => removeGuest(event)}
           check={(event) => checkFilter(event)}
+          readOnly={isLoading}
         />
       </div>
     );
