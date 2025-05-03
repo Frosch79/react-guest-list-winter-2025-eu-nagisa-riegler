@@ -13,22 +13,21 @@ export default function App() {
   const baseUrl = 'http://localhost:4000';
 
   const apiFetch = async () => {
-    await fetch(`${baseUrl}/guests`)
-      .then((response) => response.json())
-      .then((allGuests) => setGuestList(allGuests), setIsLoading(false));
-    /*  const allGuests = await response.json();
-    setGuestList(allGuests); */
-    /*     setIsLoading(false); */
+    const response = await fetch(`${baseUrl}/guests`);
+    const allGuests = await response.json();
+    setGuestList(allGuests);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     /* fetch API data */
+
     apiFetch().catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
     if (isLoading) {
-      document.title = 'Loading';
+      document.title = 'Loading...';
     } else {
       document.title = 'GUEST LIST';
     }
@@ -98,37 +97,35 @@ export default function App() {
     apiFetch().catch((error) => console.log(error));
   };
 
-  if (isLoading) {
-    return (
-      <div className="Loading">
+  return (
+    <div>
+      {isLoading ? (
         <h1>Loading...</h1>
-      </div>
-    );
-  } else {
-    return (
-      <div className="App">
-        <Form
-          className="Form"
-          readOnly={isLoading}
-          getList={keyHandle}
-          first={firstName}
-          last={lastName}
-          getFirstName={(event) => setFirstName(event.currentTarget.value)}
-          getLastName={(event) => setLastName(event.currentTarget.value)}
-        />
+      ) : (
+        <div className="App">
+          <Form
+            className="Form"
+            readOnly={isLoading}
+            getList={keyHandle}
+            first={firstName}
+            last={lastName}
+            getFirstName={(event) => setFirstName(event.currentTarget.value)}
+            getLastName={(event) => setLastName(event.currentTarget.value)}
+          />
 
-        <Button
-          /* to delete all attending guest */
-          onClick={() => removeAllGuests()}
-          value="delete all attending guests"
-        />
-        <ListTable
-          guestList={guestList}
-          onClick={(event) => removeGuest(event)}
-          check={(event) => checkFilter(event)}
-          readOnly={isLoading}
-        />
-      </div>
-    );
-  }
+          <Button
+            /* to delete all attending guest */
+            onClick={() => removeAllGuests()}
+            value="delete all attending guests"
+          />
+          <ListTable
+            guestList={guestList}
+            onClick={(event) => removeGuest(event)}
+            check={(event) => checkFilter(event)}
+            readOnly={isLoading}
+          />
+        </div>
+      )}
+    </div>
+  );
 }
