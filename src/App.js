@@ -98,11 +98,11 @@ export default function App() {
   };
 
   return (
-    <div>
+    <div className={isLoading ? '' : 'App'}>
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        <div className="App">
+        <>
           <Form
             className="Form"
             readOnly={isLoading}
@@ -124,7 +124,7 @@ export default function App() {
             check={(event) => checkFilter(event)}
             readOnly={isLoading}
           />
-        </div>
+        </>
       )}
     </div>
   );
