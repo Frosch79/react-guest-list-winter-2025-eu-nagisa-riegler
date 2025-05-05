@@ -20,7 +20,7 @@ export default function TableBody(props) {
         <li>{props.lastName}</li>
         <li>
           <Button
-            name={props.name}
+            name={props.id}
             onClick={props.onClick}
             id={`Remove ${props.firstName} ${props.lastName}`}
             value="Remove"
