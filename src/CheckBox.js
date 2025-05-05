@@ -3,7 +3,7 @@ export default function CheckBox(props) {
     <div>
       <input
         type="checkbox"
-        name={props.name}
+        id={props.id}
         aria-label={`${props.firstName} ${props.lastName} attending status`}
         onClick={props.onClick}
         defaultChecked={props.attending}

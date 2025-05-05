@@ -22,7 +22,7 @@ export default function ListTable(props) {
         .map((name) => (
           <TableBody
             key={`${name.id}`}
-            name={name.id}
+            id={name.id}
             firstName={name.firstName}
             lastName={name.lastName}
             onClick={props.onClick}

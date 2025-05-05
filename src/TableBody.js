@@ -7,7 +7,7 @@ export default function TableBody(props) {
       <ul>
         <li>
           <CheckBox
-            name={props.name}
+            id={props.id}
             firstName={props.firstName}
             lastName={props.lastName}
             onClick={props.check}

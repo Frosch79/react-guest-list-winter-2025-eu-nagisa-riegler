@@ -71,7 +71,7 @@ export default function App() {
 
   const checkFilter = async (event) => {
     /* To check the attending */
-    const id = event.target.getAttribute('name');
+    const id = event.target.getAttribute('id');
 
     const response = await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
