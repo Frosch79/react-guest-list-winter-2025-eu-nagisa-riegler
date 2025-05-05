@@ -34,7 +34,7 @@ export default function App() {
   }, [isLoading]);
 
   async function createGuest(first, last) {
-    await fetch(`${baseUrl}/guests`, {
+    const response = await fetch(`${baseUrl}/guests`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,7 +42,8 @@ export default function App() {
       body: JSON.stringify({ firstName: first, lastName: last }),
     });
 
-    apiFetch().catch((error) => console.log(error));
+    const createdGuest = await response.json();
+    setGuestList((state) => [...state, createdGuest]);
   }
 
   const keyHandle = (event) => {
@@ -59,17 +60,20 @@ export default function App() {
   async function removeGuest(event) {
     /* Remove a guest */
     const user = event.target.getAttribute('name');
-    await fetch(`${baseUrl}/guests/${Number(user)}`, {
+    const response = await fetch(`${baseUrl}/guests/${Number(user)}`, {
       method: 'DELETE',
     });
-    setGuestList(guestList.filter((removeUser) => removeUser.id !== user));
+    const deleteGuest = await response.json();
+    setGuestList(
+      guestList.filter((removeUser) => removeUser.id !== deleteGuest.id),
+    );
   }
 
   const checkFilter = async (event) => {
     /* To check the attending */
     const id = event.target.getAttribute('name');
 
-    await fetch(`${baseUrl}/guests/${id}`, {
+    const response = await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -80,12 +84,11 @@ export default function App() {
           : { attending: true },
       ),
     });
-    /* guestList.find((obj) => obj.id === id).attending */
+    const updateGuest = await response.json();
+
     setGuestList(
       guestList.map((obj) =>
-        obj.id === id
-          ? { ...obj, attending: obj.attending ? false : true }
-          : { ...obj },
+        obj.id === updateGuest.id ? updateGuest : { ...obj },
       ),
     );
   };
