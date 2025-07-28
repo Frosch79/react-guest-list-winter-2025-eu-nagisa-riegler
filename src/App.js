@@ -10,8 +10,7 @@ export default function App() {
   const [lastName, setLastName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  /* const baseUrl = 'https://frosch-79-express-gue-19.deno.dev'; */
-  const baseUrl = 'http://localhost:4000';
+  const baseUrl = 'https://frosch-79-express-gue-19.deno.dev';
 
   const apiFetch = async () => {
     const response = await fetch(`${baseUrl}/guests`);
