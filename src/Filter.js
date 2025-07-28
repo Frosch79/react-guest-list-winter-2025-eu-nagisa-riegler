@@ -1,9 +1,13 @@
+import { useRef } from 'react';
 import Button from './Button';
 
 export default function Filter(props) {
+  const selectRef = useRef(null);
+
   return (
     <div>
       <select
+        ref={selectRef}
         defaultValue={(event) => event.target.option.value}
         onChange={props.onChange}
         id="guest-filter"
@@ -14,9 +18,7 @@ export default function Filter(props) {
         <option value="attending">attending guests</option>
       </select>
       <Button
-        onClick={() =>
-          (document.getElementById('guest-filter').selectedIndex = 0)
-        }
+        onClick={() => (selectRef.current.selectedIndex = 0)}
         value="reset"
       />
     </div>

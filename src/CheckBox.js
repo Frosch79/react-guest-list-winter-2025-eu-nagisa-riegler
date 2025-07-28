@@ -1,14 +1,17 @@
 export default function CheckBox(props) {
+  console.log('testcheck', props.testCheck);
   return (
     <div>
-      <input
-        type="checkbox"
-        id={props.id}
-        aria-label={`${props.firstName} ${props.lastName} attending status`}
-        onClick={props.onClick}
-        defaultChecked={props.attending}
-        readOnly={props.readOnly}
-      />
+      <form onSubmit={(event) => event.preventDefault()}>
+        <input
+          type="checkbox"
+          id={props.id}
+          aria-label={`${props.firstName} ${props.lastName} attending status`}
+          onChange={props.change}
+          checked={props.testCheck}
+          readOnly={props.readOnly}
+        />
+      </form>
     </div>
   );
 }

@@ -10,27 +10,27 @@ export default function ListTable(props) {
       <Filter onChange={(event) => setFilter(event.target.value)} />
 
       {props.guestList
-        .filter((obj) => {
+        .filter((list) => {
           if (filter === 'attending') {
-            return obj.attending === true;
+            return list.attending === true;
           } else if (filter === 'non-attending') {
-            return obj.attending === false;
+            return list.attending === false;
           } else {
-            return obj;
+            return list;
           }
         })
-        .map((name) => (
-          <TableBody
-            key={`${name.id}`}
-            id={name.id}
-            firstName={name.firstName}
-            lastName={name.lastName}
-            onClick={props.onClick}
-            check={props.check}
-            attending={name.attending}
-            readOnly={props.readOnly}
-          />
-        ))}
+        .map((guest) => {
+          return (
+            <TableBody
+              key={`${guest.id}`}
+              id={guest.id}
+              firstName={guest.firstName}
+              lastName={guest.lastName}
+              readOnly={props.readOnly}
+              checkControl={props.checkControl}
+            />
+          );
+        })}
     </div>
   );
 }

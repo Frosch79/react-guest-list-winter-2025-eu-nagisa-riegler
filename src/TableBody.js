@@ -1,19 +1,27 @@
+import { useState } from 'react';
 import Button from './Button';
 import CheckBox from './CheckBox';
 
 export default function TableBody(props) {
+  const [checkBox, setCheckBox] = useState(false);
+  const control = props.checkControl;
+
+  function controlledCheckBox(checked) {
+    setCheckBox(checked);
+    control(checked, props.id);
+  }
+
   return (
     <div data-test-id="guest">
       <ul>
         <li>
           <CheckBox
-            id={props.id}
             firstName={props.firstName}
             lastName={props.lastName}
-            onClick={props.check}
             onChange={props.onChange}
-            attending={props.attending}
             readOnly={props.readOnly}
+            testCheck={checkBox}
+            change={(event) => controlledCheckBox(event.target.checked)}
           />
         </li>
         <li>{props.firstName}</li>

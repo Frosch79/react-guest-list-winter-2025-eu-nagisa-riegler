@@ -10,7 +10,8 @@ export default function App() {
   const [lastName, setLastName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  const baseUrl = 'https://frosch-79-express-gue-19.deno.dev';
+  /* const baseUrl = 'https://frosch-79-express-gue-19.deno.dev'; */
+  const baseUrl = 'http://localhost:4000';
 
   const apiFetch = async () => {
     const response = await fetch(`${baseUrl}/guests`);
@@ -48,18 +49,17 @@ export default function App() {
 
   const keyHandle = (event) => {
     /* If in the input form click return */
-    if (event.key !== 'Enter') {
+    if (event.key === 'Enter' && firstName !== '' && lastName !== '') {
+      createGuest(firstName, lastName).catch((error) => console.log(error));
+      setFirstName('');
+      setLastName('');
       return;
-    } else if (firstName !== '' && lastName !== '') {
-      return (
-        createGuest(firstName, lastName), setFirstName(''), setLastName('')
-      );
     }
   };
 
   async function removeGuest(event) {
     /* Remove a guest */
-    const user = event.target.getAttribute('name');
+    const user = event.currentTarget.name;
     const response = await fetch(`${baseUrl}/guests/${Number(user)}`, {
       method: 'DELETE',
     });
@@ -69,21 +69,18 @@ export default function App() {
     );
   }
 
-  const checkFilter = async (event) => {
+  const checkBoxHandle = async (attend, id) => {
     /* To check the attending */
-    const id = event.target.getAttribute('id');
+    console.log('id', id);
 
     const response = await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(
-        guestList.find((obj) => obj.id === id).attending
-          ? { attending: false }
-          : { attending: true },
-      ),
+      body: JSON.stringify({ attending: attend }),
     });
+
     const updateGuest = await response.json();
 
     setGuestList(
@@ -114,7 +111,7 @@ export default function App() {
           <Form
             className="Form"
             readOnly={isLoading}
-            getList={keyHandle}
+            getList={(event) => keyHandle(event)}
             first={firstName}
             last={lastName}
             getFirstName={(event) => setFirstName(event.currentTarget.value)}
@@ -129,7 +126,7 @@ export default function App() {
           <ListTable
             guestList={guestList}
             onClick={(event) => removeGuest(event)}
-            check={(event) => checkFilter(event)}
+            checkControl={(attend, id) => checkBoxHandle(attend, id)}
             readOnly={isLoading}
           />
         </>
