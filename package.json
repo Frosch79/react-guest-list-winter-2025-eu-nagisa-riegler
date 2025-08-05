@@ -25,7 +25,8 @@
     "@upleveled/react-scripts": "5.1.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "sass": "1.87.0"
+    "sass": "1.87.0",
+    "unrs-resolver": "^1.11.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
