@@ -3,12 +3,12 @@ import Button from './Button';
 import CheckBox from './CheckBox';
 
 export default function TableBody(props) {
-  const [checkBox, setCheckBox] = useState(false);
+  const [checkBox, setCheckBox] = useState(props.attending || false);
   const control = props.checkControl;
 
   function controlledCheckBox(checked) {
-    setCheckBox(checked);
-    control(checked, props.id);
+    setCheckBox(checked.target.checked);
+    control(checked.target.checked, props.id);
   }
 
   return (
@@ -18,10 +18,9 @@ export default function TableBody(props) {
           <CheckBox
             firstName={props.firstName}
             lastName={props.lastName}
-            onChange={props.onChange}
             readOnly={props.readOnly}
             testCheck={checkBox}
-            change={(event) => controlledCheckBox(event.target.checked)}
+            change={(event) => controlledCheckBox(event)}
           />
         </li>
         <li>{props.firstName}</li>

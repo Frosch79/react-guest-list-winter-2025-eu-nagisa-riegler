@@ -1,5 +1,4 @@
 export default function CheckBox(props) {
-  console.log('testcheck', props.testCheck);
   return (
     <div>
       <form onSubmit={(event) => event.preventDefault()}>

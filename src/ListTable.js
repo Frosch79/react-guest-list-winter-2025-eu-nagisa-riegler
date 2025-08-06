@@ -3,17 +3,17 @@ import Filter from './Filter';
 import TableBody from './TableBody';
 
 export default function ListTable(props) {
-  const [filter, setFilter] = useState('default');
+  const [selectFilter, setSelectFilter] = useState('default');
 
   return (
     <div>
-      <Filter onChange={(event) => setFilter(event.target.value)} />
+      <Filter onChange={(event) => setSelectFilter(event.target.value)} />
 
-      {props.guestList
+      {props.guestsList
         .filter((list) => {
-          if (filter === 'attending') {
+          if (selectFilter === 'attending') {
             return list.attending === true;
-          } else if (filter === 'non-attending') {
+          } else if (selectFilter === 'non-attending') {
             return list.attending === false;
           } else {
             return list;
@@ -28,6 +28,8 @@ export default function ListTable(props) {
               lastName={guest.lastName}
               readOnly={props.readOnly}
               checkControl={props.checkControl}
+              attending={guest.attending}
+              onClick={props.onClick}
             />
           );
         })}

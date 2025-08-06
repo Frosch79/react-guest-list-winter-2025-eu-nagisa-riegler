@@ -5,17 +5,18 @@ import Form from './Form';
 import ListTable from './ListTable';
 
 export default function App() {
-  const [guestList, setGuestList] = useState([]);
+  const [guestsList, setGuestsList] = useState([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  const baseUrl = 'https://frosch-79-express-gue-66.deno.dev';
+  /* const baseUrl = 'https://frosch-79-express-gue-66.deno.dev'; */
+  const baseUrl = 'http://localhost:4000';
 
   const apiFetch = async () => {
     const response = await fetch(`${baseUrl}/guests`);
     const allGuests = await response.json();
-    setGuestList(allGuests);
+    setGuestsList(allGuests);
     setIsLoading(false);
   };
 
@@ -43,10 +44,10 @@ export default function App() {
     });
 
     const createdGuest = await response.json();
-    setGuestList((state) => [...state, createdGuest]);
+    setGuestsList((state) => [...state, createdGuest]);
   }
 
-  const keyHandle = (event) => {
+  const keyDownHandle = (event) => {
     /* If in the input form click return */
     if (event.key === 'Enter' && firstName !== '' && lastName !== '') {
       createGuest(firstName, lastName).catch((error) => console.log(error));
@@ -63,14 +64,13 @@ export default function App() {
       method: 'DELETE',
     });
     const deleteGuest = await response.json();
-    setGuestList(
-      guestList.filter((removeUser) => removeUser.id !== deleteGuest.id),
+    setGuestsList(
+      guestsList.filter((removeUser) => removeUser.id !== deleteGuest.id),
     );
   }
 
   const checkBoxHandle = async (attend, id) => {
     /* To check the attending */
-    console.log('id', id);
 
     const response = await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
@@ -82,24 +82,24 @@ export default function App() {
 
     const updateGuest = await response.json();
 
-    setGuestList(
-      guestList.map((obj) =>
+    setGuestsList(
+      guestsList.map((obj) =>
         obj.id === updateGuest.id ? updateGuest : { ...obj },
       ),
     );
   };
 
   const removeAllGuests = async () => {
-    const attendingGuest = guestList.filter((obj) => obj.attending === true);
+    const attendingGuests = guestsList.filter((obj) => obj.attending === true);
 
-    for (let i = 0; i < attendingGuest.length; i++) {
-      const id = attendingGuest[i].id;
+    for (let i = 0; i < attendingGuests.length; i++) {
+      const id = attendingGuests[i].id;
 
       await fetch(`${baseUrl}/guests/${id}`, {
         method: 'DELETE',
       });
     }
-    setGuestList(guestList.filter((obj) => obj.attending === false));
+    setGuestsList(guestsList.filter((obj) => obj.attending === false));
   };
   return (
     <div className={isLoading ? 'Loading' : 'App'}>
@@ -110,7 +110,7 @@ export default function App() {
           <Form
             className="Form"
             readOnly={isLoading}
-            getList={(event) => keyHandle(event)}
+            onKeyDown={(event) => keyDownHandle(event)}
             first={firstName}
             last={lastName}
             getFirstName={(event) => setFirstName(event.currentTarget.value)}
@@ -123,7 +123,7 @@ export default function App() {
             value="delete all attending guests"
           />
           <ListTable
-            guestList={guestList}
+            guestsList={guestsList}
             onClick={(event) => removeGuest(event)}
             checkControl={(attend, id) => checkBoxHandle(attend, id)}
             readOnly={isLoading}

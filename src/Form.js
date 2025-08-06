@@ -18,7 +18,7 @@ export default function Form(props) {
           className={props.className}
           label="Last name"
           id="last-name"
-          onKeyDown={props.getList}
+          onKeyDown={props.onKeyDown}
           onChange={props.getLastName}
           value={props.last}
           readOnly={props.readOnly}
