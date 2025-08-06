@@ -19,7 +19,7 @@ export default function TableBody(props) {
             firstName={props.firstName}
             lastName={props.lastName}
             readOnly={props.readOnly}
-            testCheck={checkBox}
+            checked={checkBox}
             change={(event) => controlledCheckBox(event)}
           />
         </li>

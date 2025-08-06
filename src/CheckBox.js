@@ -7,7 +7,7 @@ export default function CheckBox(props) {
           id={props.id}
           aria-label={`${props.firstName} ${props.lastName} attending status`}
           onChange={props.change}
-          checked={props.testCheck}
+          checked={props.checked}
           readOnly={props.readOnly}
         />
       </form>
